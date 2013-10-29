@@ -17,14 +17,11 @@
           "method": "GET",
           "summary": "Find blueprint by ID",
           "notes": "Returns a blueprint based on ID",
-          "responseClass": "Blueprint",
+          "responseClass": "BlueprintState",
           "nickname": "getById",
           "produces": [
             "application/json",
             "application/xml"
-          ],
-          "authorizations": [
-            "oauth2"
           ],
           "parameters": [
             {
@@ -37,10 +34,6 @@
             }
           ],
           "responseMessages": [
-            {
-              "code": 400,
-              "message": "Invalid ID supplied"
-            },
             {
               "code": 404,
               "message": "blueprint not found"
@@ -56,7 +49,7 @@
           "parameters": [
             {
               "name": "id",
-              "description": "Blueprint id to delete",
+              "description": "BlueprintState id to delete",
               "required": true,
               "allowMultiple": false,
               "dataType": "string",
@@ -64,10 +57,6 @@
             }
           ],
           "responseMessages": [
-            {
-              "code": 400,
-              "message": "Invalid blueprint ID"
-            },
             {
               "code": 404,
               "message": "blueprint not found"
@@ -83,7 +72,7 @@
           "method": "PUT",
           "summary": "Update an existing blueprint",
           "notes": "",
-          "responseClass": "Blueprint",
+          "responseClass": "BlueprintState",
           "nickname": "update",
           "parameters": [
             {
@@ -114,7 +103,7 @@
           "method": "POST",
           "summary": "Upload a new blueprint to Cloudify",
           "notes": "Creates a new blueprint. Even if a blueprint with the same data already exists. To update an existing blueprint, use the PUT method",
-          "responseClass": "Blueprint",
+          "responseClass": "BlueprintState",
           "nickname": "upload",
           "parameters": [
             {
@@ -189,6 +178,28 @@
         }
       }
     },
+    "BlueprintState": {
+      "id": "BlueprintState",
+      "description": "A blueprint's runtime state, incl it's deployments",
+      "required": [
+        "yml"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "yml": {
+          "type": "string",
+          "description": "The YAML definition of the blueprint"
+        },
+        "deployments": {
+          "type": "array",
+          "items": {
+            "$ref": "Deployment"
+          }
+        }
+      }
+    },
     "Deployment": {
       "id": "Deployment",
       "description": "A deployment is a the runtime entity described by a Blueprint",
@@ -199,8 +210,8 @@
         "id": {
           "type": "string"
         },
-        "blueprint": {
-          "type": "Blueprint",
+        "blueprintId": {
+          "type": "string",
           "description": "The blueprint ID that created this deployment"
         }
       }
