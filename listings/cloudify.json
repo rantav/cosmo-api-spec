@@ -2,7 +2,7 @@
   "apiVersion": null,
   "swaggerVersion": "1.2",
   "basePath": "http://example.com/",
-  "resourcePath": "/blueprint",
+  "resourcePath": "/",
   "produces": [
     "application/json",
     "application/xml",
@@ -134,6 +134,42 @@
           ]
         }
       ]
+    },
+    {
+      "path": "/deployment/{id}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Find a deployment by ID",
+          "notes": "Returns a deployment based on it's ID. A deployment is a running instnace of a blueprint",
+          "responseClass": "Deployment",
+          "nickname": "getById",
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID of deployment that needs to be fetched",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Invalid ID supplied"
+            },
+            {
+              "code": 404,
+              "message": "Deployment not found"
+            }
+          ]
+        }
+      ]
     }
   ],
   "models": {
@@ -150,6 +186,22 @@
         "yml": {
           "type": "string",
           "description": "The YAML definition of the blueprint"
+        }
+      }
+    },
+    "Deployment": {
+      "id": "Deployment",
+      "description": "A deployment is a the runtime entity described by a Blueprint",
+      "required": [
+        "blueprint"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "blueprint": {
+          "type": "Blueprint",
+          "description": "The blueprint ID that created this deployment"
         }
       }
     }
