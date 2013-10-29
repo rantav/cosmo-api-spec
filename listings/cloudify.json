@@ -171,6 +171,35 @@
       ]
     },
     {
+      "path": "/blueprint/{id}/validate",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Validates a plan",
+          "notes": "Returns a validation status. Does not change any state.",
+          "responseClass": "BlueprintValidationStatus",
+          "nickname": "getById",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID of blueprint that needs to be validated",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "blueprint not found"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "path": "/blueprints/find/?q={q}",
       "operations": [
         {
