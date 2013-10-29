@@ -5,24 +5,59 @@
   "resourcePath": "/",
   "produces": [
     "application/json",
-    "application/xml",
     "text/plain",
     "text/html"
   ],
   "apis": [
     {
+      "path": "/blueprints",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Upload a new blueprint to Cloudify",
+          "notes": "Creates a new blueprint. Even if a blueprint with the same data already exists. To update an existing blueprint, use the PUT method",
+          "responseClass": "BlueprintState",
+          "nickname": "upload",
+          "parameters": [
+            {
+              "name": "body",
+              "description": "blueprint object that needs to be added. YAML.",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "Blueprint",
+              "paramType": "body"
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 201,
+              "message": "Created. The URL of the created blueprint should be in the Location header"
+            },
+            {
+              "code": 405,
+              "message": "Invalid input"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "summary": "Lists all blueprints",
+          "notes": "Returns just the short version of the blueprints, not all the data",
+          "responseClass": "List[BlueprintState]",
+          "nickname": "list"
+        }
+      ]
+    },
+    {
       "path": "/blueprint/{id}",
       "operations": [
         {
           "method": "GET",
-          "summary": "Find blueprint by ID",
+          "summary": "Get blueprint by ID",
           "notes": "Returns a blueprint based on ID",
           "responseClass": "BlueprintState",
           "nickname": "getById",
-          "produces": [
-            "application/json",
-            "application/xml"
-          ],
+          "produces": ["application/json"],
           "parameters": [
             {
               "name": "id",
@@ -62,22 +97,25 @@
               "message": "blueprint not found"
             }
           ]
-        }
-      ]
-    },
-    {
-      "path": "/blueprint",
-      "operations": [
+        },
         {
           "method": "PUT",
-          "summary": "Update an existing blueprint",
+          "summary": "Update an existing blueprint. Completely replaces the data for the blueprint with the newly sent data",
           "notes": "",
           "responseClass": "BlueprintState",
           "nickname": "update",
           "parameters": [
             {
+              "name": "id",
+              "description": "BlueprintState id to update",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            },
+            {
               "name": "body",
-              "description": "Blueprint object that needs to be updated",
+              "description": "Blueprint object that needs to be updated.",
               "required": true,
               "allowMultiple": false,
               "dataType": "Blueprint",
@@ -100,15 +138,23 @@
           ]
         },
         {
-          "method": "POST",
-          "summary": "Upload a new blueprint to Cloudify",
-          "notes": "Creates a new blueprint. Even if a blueprint with the same data already exists. To update an existing blueprint, use the PUT method",
+          "method": "PATCH",
+          "summary": "Update in-place of an existing blueprint. Replaces only the specified yml attributes. Will not update unspecified attributes",
+          "notes": "",
           "responseClass": "BlueprintState",
-          "nickname": "upload",
+          "nickname": "patch",
           "parameters": [
             {
+              "name": "id",
+              "description": "BlueprintState id to update",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            },
+            {
               "name": "body",
-              "description": "blueprint object that needs to be added. YAML.",
+              "description": "Blueprint object that needs to be updated.",
               "required": true,
               "allowMultiple": false,
               "dataType": "Blueprint",
@@ -117,8 +163,165 @@
           ],
           "responseMessages": [
             {
-              "code": 405,
-              "message": "Invalid input"
+              "code": 404,
+              "message": "blueprint not found"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/blueprint/{id}/executions",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Run a blueprint",
+          "responseClass": "Execution",
+          "nickname": "run",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID of the blueprint to run",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 201,
+              "message": "Created. The URL of the execution is in the Location header"
+            },
+            {
+              "code": 404,
+              "message": "Deployment not found"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "summary": "Get a list of all executions of this blueprint",
+          "responseClass": "List[Execution]",
+          "nickname": "",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID of blueprint that needs to be fetched",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "blueprint not found"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/executions",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Get a list of all executions",
+          "responseClass": "List[Execution]",
+          "nickname": "list",
+          "produces": ["application/json"]
+        }
+      ]
+    },
+    {
+      "path": "/execution/{id}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Get an execution by ID",
+          "responseClass": "Execution",
+          "nickname": "get",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID of the execution that needs to be fetched",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ]
+        },
+        {
+          "method": "HEAD",
+          "summary": "Get just the headers of an execution",
+          "notes": "Useful for polling for state. Look in the headers x-status etc to get the status",
+          "responseClass": "void",
+          "nickname": "head",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID of the execution that needs to be fetched",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/execution/{id}/abort",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Abort an execution",
+          "responseClass": "Execution",
+          "nickname": "abort",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID of the execution that needs to be fetched",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/blueprint/{id}/deployments",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Get a list of all deployments of this blueprint",
+          "responseClass": "List[Deployment]",
+          "nickname": "",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID of blueprint that needs to be fetched",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "blueprint not found"
             }
           ]
         }
@@ -129,14 +332,11 @@
       "operations": [
         {
           "method": "GET",
-          "summary": "Find a deployment by ID",
+          "summary": "Get a deployment by ID",
           "notes": "Returns a deployment based on it's ID. A deployment is a running instnace of a blueprint",
           "responseClass": "Deployment",
           "nickname": "getById",
-          "produces": [
-            "application/json",
-            "application/xml"
-          ],
+          "produces": ["application/json"],
           "parameters": [
             {
               "name": "id",
@@ -165,13 +365,8 @@
     "Blueprint": {
       "id": "Blueprint",
       "description": "A blueprint is a definition of cloudify workflows",
-      "required": [
-        "yml"
-      ],
+      "required": ["yml"],
       "properties": {
-        "id": {
-          "type": "string"
-        },
         "yml": {
           "type": "string",
           "description": "The YAML definition of the blueprint"
@@ -234,6 +429,17 @@
           "type": "array",
           "items": {"$ref": "Relationship"}
         }
+      }
+    },
+    "Execution": {
+      "id": "Execution",
+      "description": "Execution is a run of a blueprint",
+      "required": ["id"],
+      "properties": {
+        "id": {"type": "string"},
+        "status": {"type": "string"},
+        "deploymentId": {"type": "string"},
+        "blueprintId": {"type": "string"}
       }
     },
     "Deployment": {
