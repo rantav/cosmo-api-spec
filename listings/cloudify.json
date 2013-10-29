@@ -181,16 +181,14 @@
     "BlueprintState": {
       "id": "BlueprintState",
       "description": "A blueprint's runtime state, incl it's deployments",
-      "required": [
-        "yml"
-      ],
+      "required": ["id", "yml"],
       "properties": {
         "id": {
           "type": "string"
         },
         "yml": {
           "type": "string",
-          "description": "The YAML definition of the blueprint"
+          "description": "The raw YAML definition of the blueprint"
         },
         "createdAt": {
           "type": "dateTime"
@@ -198,11 +196,43 @@
         "updatedAt": {
           "type": "dateTime"
         },
+        "topology": {"type": "Topology"},
         "deployments": {
           "type": "array",
           "items": {
             "$ref": "Deployment"
           }
+        }
+      }
+    },
+    "Topology": {
+      "id": "Topology",
+      "description": "A topology is a definition of a set of nodes, such as hosts",
+      "required": ["id"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {"$ref": "Node"}
+        }
+      }
+    },
+    "Node": {
+      "id": "Node",
+      "description": "A node is a single item in a topology, such as a host",
+      "required": ["id"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "type": {"type": "string"},
+        "baseType": {"type": "string"},
+        "requiredInstances": {"type": "integer"},
+        "more... TODO": {"type": "string"},
+        "relationships": {
+          "type": "array",
+          "items": {"$ref": "Relationship"}
         }
       }
     },
