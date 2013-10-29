@@ -4,6 +4,6 @@
     "description": "",
     "path": "/resources/samplehub/sample/insert"
   }],
-  "basePath": "http://localhost:8000",
+  "basePath": "/./",
   "swaggerVersion": "1.1"
 }
