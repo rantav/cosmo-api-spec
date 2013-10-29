@@ -322,6 +322,34 @@
       ]
     },
     {
+      "path": "/execution/{id}/logs",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Get all logs of the execution",
+          "responseClass": "ExecutionLogs",
+          "nickname": "logs",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID of execution that needs to be fetched",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "Execution not found"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "path": "/executions/find/?q={q}",
       "operations": [
         {
@@ -393,9 +421,57 @@
           ],
           "responseMessages": [
             {
-              "code": 400,
-              "message": "Invalid ID supplied"
-            },
+              "code": 404,
+              "message": "Deployment not found"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "summary": "Uninstall a deployment",
+          "note": "Returns an execution instance that can further be queried for status",
+          "responseClass": "Execution",
+          "nickname": "uninstall",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID of deployment that needs to be uninstalled",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "Deployment not found"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/deployment/{id}/logs",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Get all logs of the deployment",
+          "responseClass": "DeploymentLogs",
+          "nickname": "logs",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID of deployment that needs to be fetched",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ],
+          "responseMessages": [
             {
               "code": 404,
               "message": "Deployment not found"
@@ -439,6 +515,34 @@
             {
               "name": "id",
               "description": "ID of the node",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "Node not found"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/node/{id}/logs",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Get logs from the node",
+          "responseClass": "NodeLogs",
+          "nickname": "logs",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID of node that needs to be fetched",
               "required": true,
               "allowMultiple": false,
               "dataType": "string",
