@@ -192,6 +192,12 @@
           "type": "string",
           "description": "The YAML definition of the blueprint"
         },
+        "createdAt": {
+          "type": "dateTime"
+        },
+        "updatedAt": {
+          "type": "dateTime"
+        },
         "deployments": {
           "type": "array",
           "items": {
@@ -209,6 +215,12 @@
       "properties": {
         "id": {
           "type": "string"
+        },
+        "createdAt": {
+          "type": "dateTime"
+        },
+        "updatedAt": {
+          "type": "dateTime"
         },
         "blueprintId": {
           "type": "string",
