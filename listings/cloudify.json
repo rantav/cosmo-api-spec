@@ -1,0 +1,157 @@
+{
+  "apiVersion": null,
+  "swaggerVersion": "1.2",
+  "basePath": "http://example.com/",
+  "resourcePath": "/blueprint",
+  "produces": [
+    "application/json",
+    "application/xml",
+    "text/plain",
+    "text/html"
+  ],
+  "apis": [
+    {
+      "path": "/blueprint/{id}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Find blueprint by ID",
+          "notes": "Returns a blueprint based on ID",
+          "responseClass": "Blueprint",
+          "nickname": "getById",
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "authorizations": [
+            "oauth2"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID of blueprint that needs to be fetched",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Invalid ID supplied"
+            },
+            {
+              "code": 404,
+              "message": "blueprint not found"
+            }
+          ]
+        },
+        {
+          "method": "DELETE",
+          "summary": "Deletes a blueprint.",
+          "notes": "Actually archives it, blueprints are never really deleted. For safety.",
+          "responseClass": "void",
+          "nickname": "delete",
+          "parameters": [
+            {
+              "name": "id",
+              "description": "Blueprint id to delete",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Invalid blueprint ID"
+            },
+            {
+              "code": 404,
+              "message": "blueprint not found"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/blueprint",
+      "operations": [
+        {
+          "method": "PUT",
+          "summary": "Update an existing blueprint",
+          "notes": "",
+          "responseClass": "Blueprint",
+          "nickname": "update",
+          "parameters": [
+            {
+              "name": "body",
+              "description": "Blueprint object that needs to be updated",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "Blueprint",
+              "paramType": "body"
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Invalid ID supplied"
+            },
+            {
+              "code": 404,
+              "message": "Blueprint not found"
+            },
+            {
+              "code": 405,
+              "message": "Validation exception"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "summary": "Upload a new blueprint to Cloudify",
+          "notes": "Creates a new blueprint. Even if a blueprint with the same data already exists. To update an existing blueprint, use the PUT method",
+          "responseClass": "Blueprint",
+          "nickname": "upload",
+          "parameters": [
+            {
+              "name": "body",
+              "description": "blueprint object that needs to be added. YAML.",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "Blueprint",
+              "paramType": "body"
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 405,
+              "message": "Invalid input"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "models": {
+    "Blueprint": {
+      "id": "Blueprint",
+      "description": "A blueprint is a definition of cloudify workflows",
+      "required": [
+        "yml"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "yml": {
+          "type": "string",
+          "description": "The YAML definition of the blueprint"
+        }
+      }
+    }
+  }
+}

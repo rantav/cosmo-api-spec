@@ -1,18 +1,10 @@
 {
-  "apiVersion": "0.2",
+  "apiVersion": "0.0",
   "swaggerVersion": "1.2",
   "apis": [
     {
-      "path": "/../listings/store",
-      "description": "Operations about store"
-    },
-    {
-      "path": "/../listings/pet",
-      "description": "Operations about pets"
-    },
-    {
-      "path": "/../listings/user",
-      "description": "Operations about user"
+      "path": "/../listings/cloudify.json",
+      "description": "Cloudify (Cosmo) operations"
     }
   ]
 }
