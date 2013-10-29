@@ -171,6 +171,28 @@
       ]
     },
     {
+      "path": "/blueprints/find/?q={q}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Find blueprints by its attributes",
+          "responseClass": "List[BlueprintState]",
+          "nickname": "find",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "q",
+              "description": "A blueprint query string. DSL TBD",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "path": "/blueprint/{id}/executions",
       "operations": [
         {
@@ -300,6 +322,28 @@
       ]
     },
     {
+      "path": "/executions/find/?q={q}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Find executions by attributes",
+          "responseClass": "List[Execution]",
+          "nickname": "find",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "q",
+              "description": "An execution query string. DSL TBD",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "path": "/blueprint/{id}/deployments",
       "operations": [
         {
@@ -355,6 +399,78 @@
             {
               "code": 404,
               "message": "Deployment not found"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/deploments/find/?q={q}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Find deployments by its attributes",
+          "responseClass": "List[Deployment]",
+          "nickname": "find",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "q",
+              "description": "A deployment query string. DSL TBD",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/node/{id}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Get a node by ID",
+          "responseClass": "Node",
+          "nickname": "get",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID of the node",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "Node not found"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/nodes/find/?q={q}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Find nodes by attributes",
+          "responseClass": "List[Node]",
+          "nickname": "find",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "q",
+              "description": "A node query string. DSL TBD",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
             }
           ]
         }
@@ -424,10 +540,14 @@
         "type": {"type": "string"},
         "baseType": {"type": "string"},
         "requiredInstances": {"type": "integer"},
-        "more... TODO": {"type": "string"},
+        "TODO: more things here...": {"type": "string"},
         "relationships": {
           "type": "array",
           "items": {"$ref": "Relationship"}
+        },
+        "deploymentIds": {
+          "type": "array",
+          "items": {"type": "string"}
         }
       }
     },
