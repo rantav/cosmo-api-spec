@@ -49,7 +49,7 @@
       ]
     },
     {
-      "path": "/blueprint/{id}",
+      "path": "/blueprints/{id}",
       "operations": [
         {
           "method": "GET",
@@ -171,7 +171,7 @@
       ]
     },
     {
-      "path": "/blueprint/{id}/validate",
+      "path": "/blueprints/{id}/validate",
       "operations": [
         {
           "method": "GET",
@@ -222,7 +222,7 @@
       ]
     },
     {
-      "path": "/blueprint/{id}/executions",
+      "path": "/blueprints/{id}/executions",
       "operations": [
         {
           "method": "POST",
@@ -289,7 +289,7 @@
       ]
     },
     {
-      "path": "/execution/{id}",
+      "path": "/executions/{id}",
       "operations": [
         {
           "method": "GET",
@@ -329,7 +329,7 @@
       ]
     },
     {
-      "path": "/execution/{id}/abort",
+      "path": "/executions/{id}/abort",
       "operations": [
         {
           "method": "POST",
@@ -351,7 +351,7 @@
       ]
     },
     {
-      "path": "/execution/{id}/logs",
+      "path": "/executions/{id}/logs",
       "operations": [
         {
           "method": "GET",
@@ -401,7 +401,7 @@
       ]
     },
     {
-      "path": "/blueprint/{id}/deployments",
+      "path": "/blueprints/{id}/deployments",
       "operations": [
         {
           "method": "GET",
@@ -429,7 +429,7 @@
       ]
     },
     {
-      "path": "/deployment/{id}",
+      "path": "/deployments/{id}",
       "operations": [
         {
           "method": "GET",
@@ -482,7 +482,7 @@
       ]
     },
     {
-      "path": "/deployment/{id}/logs",
+      "path": "/deployments/{id}/logs",
       "operations": [
         {
           "method": "GET",
@@ -532,7 +532,7 @@
       ]
     },
     {
-      "path": "/node/{id}",
+      "path": "/nodes/{id}",
       "operations": [
         {
           "method": "GET",
@@ -560,7 +560,7 @@
       ]
     },
     {
-      "path": "/node/{id}/logs",
+      "path": "/nodes/{id}/logs",
       "operations": [
         {
           "method": "GET",
