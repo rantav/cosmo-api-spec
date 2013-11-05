@@ -93,6 +93,10 @@
           ],
           "responseMessages": [
             {
+              "code": 204,
+              "message": "Deleted (no content)"
+            },
+            {
               "code": 404,
               "message": "blueprint not found"
             }
@@ -704,6 +708,30 @@
           "type": "string",
           "description": "The blueprint ID that created this deployment"
         }
+      }
+    },
+    "Error": {
+      "id": "Error",
+      "description": "An Error message",
+      "required": ["code"],
+      "properties": {
+        "code": {"type": "string"},
+        "message": {"type": "string"},
+        "description": {"type": "string"},
+        "errors": {
+          "type": "array",
+          "items": {"$ref": "ValidationError"}
+        }
+      }
+    },
+    "ValidationError": {
+      "id": "ValidationError",
+      "description": "An ValidationError message",
+      "required": ["code"],
+      "properties": {
+        "code": {"type": "string"},
+        "message": {"type": "string"},
+        "field": {"type": "field"}
       }
     }
   }
