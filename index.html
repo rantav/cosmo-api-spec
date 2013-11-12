@@ -50,6 +50,21 @@
   });
 
   </script>
+  <style type="text/css">
+    ul.links a {
+      line-height: 25px;
+      color: #fff;
+      font-weight: bolder;
+      text-decoration: none;
+    }
+    ul.links a:hover {
+      text-decoration: underline;
+    }
+    ul.links li:before {
+     color: #fff;
+     content: "\00BB";
+    }
+  </style>
 </head>
 
 <body>
@@ -69,9 +84,10 @@
       <div class='input'><a id="explore" href="#">Explore</a></div>
     </form>
   </div>
-  <p>
-    See API guidelines <a href='https://github.com/rantav/cosmo-api-spec/blob/gh-pages/GUIDELINES.md'>here</a>
-  </p>
+  <ul class='links'>
+    <li><a href='https://github.com/rantav/cosmo-api-spec/blob/gh-pages/GUIDELINES.md'> API Guidelines</a></li>
+    <li><a href='https://github.com/rantav/cosmo-api-spec/blob/gh-pages/entities.md'> API Entities</a></li>
+  </ul>
 </div>
 
 <div id="message-bar" class="swagger-ui-wrap">
