@@ -242,6 +242,22 @@
               "allowMultiple": false,
               "dataType": "string",
               "paramType": "path"
+            },
+            {
+              "name": "workflowId",
+              "description": "ID of the workflow to run",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            },
+            {
+              "name": "deploymentId",
+              "description": "ID of the deployment, if empty then create a new one",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
             }
           ],
           "responseMessages": [
@@ -705,6 +721,7 @@
         "permalink": {"type": "string"},
         "status": {"type": "string"},
         "deploymentId": {"type": "string"},
+        "workflowId": {"type": "string"},
         "blueprintId": {"type": "string"}
       }
     },
@@ -717,9 +734,15 @@
         "permalink": {"type": "string"},
         "createdAt": {"type": "dateTime"},
         "updatedAt": {"type": "dateTime"},
+        "executionId": {"type": "string"},
+        "workflowId": {"type": "string"},
         "blueprintId": {
           "type": "string",
           "description": "The blueprint ID that created this deployment"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {"$ref": "Node"}
         }
       }
     },

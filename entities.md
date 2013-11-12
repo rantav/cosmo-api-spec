@@ -10,7 +10,7 @@ A blueprint is a specification which includes a set of:
 
 * Workflows
 * Topologies
-* Monitoring information.
+* Policies
 * (What more?)
 
 The specification is described by means of a yaml document.
@@ -24,7 +24,10 @@ You load a new blueprint by POSTing it's yaml content to the cloudufy server.
 ## Workflow
 A workflow is part of the blueprint and is used to describe things such as deployment, scaling or undeployment.
 
-A blueprint may have zero or more workflows (correct?)
+A blueprint may have zero or more workflows
+
+### Workflow Types
+TODO: Need to define the specific types (correct???)
 
 ## Topology
 A topology describes a set of nodes and their relationships.
@@ -46,6 +49,12 @@ For example a node might be contained within another node (for example the mysql
 
 Relationships are part of the Topology
 
+## Policy 
+A policy actually defines monitoring procedures. (and healing?)
+
+Can we use a more descriptive name? Policy just sounds kind of generic…
+
+
 ## Execution
 An execution is the result of running a single (?) workflow.
 
@@ -66,3 +75,10 @@ Each deployment is a result of one of more ordered workflows. So for example a d
 ## DeploymentDiff
 After deploying (executing a deployment workflow) the state of the softare may change. Crashes, out of band modifications (an admin ssh-ing to the server and messing with it) etc. A DeploymentDiff is what describes this difference - b/w the desired deployment state and the actual deployment state. 
 
+## ExecutionPlan
+Question: Do we need it? It seems very useful, but can we make it? The biggest challange I guess is the radial blobs which are opaque logic and it's hard for us to say what they will actually do to the system (hence we cannot describe an execution plan)
+
+A deployment plan is what comes out of planning to run a workflow, and can be used to run an execution. Think of it like a dry-run of an execution - you ask cloudify to execute a workflow, so it returns with an executino plan. If you like the plan, then you may ask cloudify to execute the plan. 
+
+The plan may consist of the stages of executions, what checks are run in between etc. An execution plan is a direct derivatice of a workflow, but not necessarily the same as the workflow b/c it needs to adjust to the current state. 
+ 

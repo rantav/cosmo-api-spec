@@ -26,9 +26,6 @@ You should not redirect non secure clients to secure ports, e.g. do not redirect
 
 More? TBD
 
-## Browsability
-The API should be browsable. That means that by using a browser it's easy to click and navigate from one object to other, related objects. That's why we have in many places a `permalink` attribute.
-
 ## Authentication
 TBD
 
@@ -84,5 +81,6 @@ We have to decide on the actaul implementtion. [http://www.vinaysahni.com/best-p
 All errors should return the appropriate HTTP error code as well as a JSON encoded body.
 
 ## Browserable API
-Nice to have: If we bother to make the API browserable such that any .html resource will output an HTML representation of this resoruce with nice formatting and href links etc. (the default formatting will be json with the extension of .json or no extension at all). Example frameworks that help building this feature are [Django Rest](http://django-rest-framework.org/) and [Swagger](https://developers.helloreverb.com/swagger/)
+The API should be browsable. That means that by using a browser it's easy to click and navigate from one object to other, related objects. That's why we have in many places a `permalink` attribute.
 
+Nice to have: On top of that we can also make the API easy to consume in a browser such that any .html resource will output an HTML representation of this resoruce with nice formatting and href links etc. (the default formatting will be json with the extension of .json or no extension at all). Example frameworks that help building this feature are [Django Rest](http://django-rest-framework.org/) and [Swagger](https://developers.helloreverb.com/swagger/)
