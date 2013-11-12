@@ -82,3 +82,7 @@ We have to decide on the actaul implementtion. [http://www.vinaysahni.com/best-p
 
 ## Errors
 All errors should return the appropriate HTTP error code as well as a JSON encoded body.
+
+## Browserable API
+Nice to have: If we bother to make the API browserable such that any .html resource will output an HTML representation of this resoruce with nice formatting and href links etc. (the default formatting will be json with the extension of .json or no extension at all). Example frameworks that help building this feature are [Django Rest](http://django-rest-framework.org/) and [Swagger](https://developers.helloreverb.com/swagger/)
+

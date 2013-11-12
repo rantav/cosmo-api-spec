@@ -612,6 +612,19 @@
           ]
         }
       ]
+    },
+    {
+      "path": "/",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "List all API endpoints",
+          "description": "This is a meta API used to describe all the available API endpoints.",
+          "responseClass": "List[ApiEndpoint]",
+          "nickname": "list",
+          "produces": ["application/json"]
+        }
+      ]
     }
   ],
   "models": {
@@ -732,6 +745,25 @@
         "code": {"type": "string"},
         "message": {"type": "string"},
         "field": {"type": "field"}
+      }
+    },
+    "ApiEndpoint": {
+      "id": "ApiEndpoint",
+      "description": "A description of an API endpoints",
+      "required": ["url", "method"],
+      "properties": {
+        "url": {"type": "string"},
+        "method": {"type": "string"},
+        "parameters": {"type": "array", "items": {"$ref": "ApiParameter"}}
+      }
+    },
+    "ApiParameter": {
+      "id": "ApiParameter",
+      "description": "A description of an API parameter, within an API endpoint",
+      "required": ["name", "type"],
+      "properties": {
+        "name": {"type": "string"},
+        "type": {"type": "string"}
       }
     }
   }
