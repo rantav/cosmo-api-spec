@@ -538,6 +538,90 @@
       ]
     },
     {
+      "path": "/deployments/{id}/workflows",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Get all workflows associated with the deployment (such as autoheal)",
+          "responseClass": "DeploymentWorkflows",
+          "nickname": "workflows",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID of deployment that needs to be fetched",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "Deployment not found"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/workflows/{id}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Get a workflow data. Workflows have a global unique IDs.",
+          "responseClass": "DeploymentWorkflow",
+          "nickname": "workflows",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID of the workflow to be fetched",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "Workflow not found"
+            }
+          ]
+        },
+        {
+          "method": "PATCH",
+          "summary": "Update an existing workflow. For example to enable or disable it.",
+          "notes": "Only some updates are allowed, such as enable/disable a workflow.",
+          "responseClass": "DeploymentWorkflow",
+          "nickname": "workflows",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "description": "ID of the workflow up update",
+              "required": true,
+              "allowMultiple": false,
+              "dataType": "string",
+              "paramType": "path"
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "Workflow not found"
+            },
+            {
+              "code": 403,
+              "message": "Operation not allowed"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "path": "/deploments/find/?q={q}",
       "operations": [
         {
@@ -751,6 +835,30 @@
         "nodes": {
           "type": "array",
           "items": {"$ref": "Node"}
+        }
+      }
+    },
+    "DeploymentWorkflow": {
+      "id": "DeploymentWorkflow",
+      "description": "A deployment workflow is the representation of a workflow attached to one specific deployment",
+      "required": ["id", "permalink"],
+      "properties": {
+        "id": {"type": "string"},
+        "permalink": {"type": "string"},
+        "state": {"type": "string"},
+        "deploymentId": {"type": "string"},
+        "blueprintId": {"type": "string"}
+      }
+    },
+    "DeploymentWorkflows": {
+      "id": "DeploymentWorkflows",
+      "description": "A set of deployment workflows associated to a single deployment",
+      "properties": {
+        "deploymentId": {"type": "string"},
+        "blueprintId": {"type": "string"},
+        "nodes": {
+          "type": "array",
+          "items": {"$ref": "DeploymentWorkflow"}
         }
       }
     },
