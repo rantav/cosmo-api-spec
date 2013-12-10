@@ -84,3 +84,7 @@ All errors should return the appropriate HTTP error code as well as a JSON encod
 The API should be browsable. That means that by using a browser it's easy to click and navigate from one object to other, related objects. That's why we have in many places a `permalink` attribute.
 
 Nice to have: On top of that we can also make the API easy to consume in a browser such that any .html resource will output an HTML representation of this resoruce with nice formatting and href links etc. (the default formatting will be json with the extension of .json or no extension at all). Example frameworks that help building this feature are [Django Rest](http://django-rest-framework.org/) and [Swagger](https://developers.helloreverb.com/swagger/)
+
+## CORS
+Nice to have, but probably very low hanging fruit is Cross Origin Resource Sharing support. http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
+
